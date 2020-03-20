@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page 2</title>
+    <link rel="stylesheet" href="/static/style2.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <section class="section1">
+      <div class="form1">
+        <h1>Your Book List</h1>
+        <br />
+
+        <button class="btn btn-primary" onclick="fetchSomeData()">
+          Click here to fill in the list! (Max. 5 Books)</button
+        ><br />
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td id="title1">Title 1</td>
+              <td id="author1">Author 1</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td id="title2">Title 2</td>
+              <td id="author2">Author 2</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td id="title3">Title 3</td>
+              <td id="author3">Author 3</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td id="title4">Title 4</td>
+              <td id="author4">Author 4</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td id="title5">Title 5</td>
+              <td id="author5">Author 5</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="btn btn-info">
+          <a href="http://localhost:5000/">Go back!</a>
+        </button>
+      </div>
+    </section>
+    <script>
+      function fetchSomeData() {
+        fetch("http://localhost:5000/books").then(response =>
+          response.json().then(display)
+        );
+      }
+
+      function display(response) {
+        console.log(response);
+        document.getElementById("title1").innerHTML = response[0].title;
+        document.getElementById("title2").innerHTML = response[1].title;
+        document.getElementById("title3").innerHTML = response[2].title;
+        document.getElementById("title4").innerHTML = response[3].title;
+        document.getElementById("title5").innerHTML = response[4].title;
+
+        document.getElementById("author1").innerHTML = response[0].author;
+        document.getElementById("author2").innerHTML = response[1].author;
+        document.getElementById("author3").innerHTML = response[2].author;
+        document.getElementById("author4").innerHTML = response[3].author;
+        document.getElementById("author5").innerHTML = response[4].author;
+      }
+    </script>
+  </body>
+</html>

@@ -4,8 +4,105 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"
+    />
   </head>
+
   <body>
-    Hello World!
+    <section class="section1">
+      <div class="form1">
+        <h1>Add Book List</h1>
+        <br />
+
+        <form id="bookList" action="http://localhost:5000/books/" method="POST">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              type="title"
+              class="form-control"
+              id="title"
+              aria-describedby="emailHelp"
+              placeholder="Enter Title"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input
+              type="author"
+              class="form-control"
+              id="author"
+              placeholder="Enter Author"
+              required
+            />
+          </div>
+        </form>
+
+        <button class="btn btn-primary" onclick="postBook()">
+          Add a book to the list
+        </button>
+        <br />
+        <button class="btn btn-primary" onclick="putBook()">
+          Update a book from the list</button
+        ><br />
+        <button class="btn btn-primary" onclick="deleteBook()">
+          Delete a book from the list</button
+        ><br />
+        <button class="btn btn-success">
+          <a href="/index2">See your list of books</a>
+        </button>
+      </div>
+    </section>
+
+    <script>
+      async function postBook() {
+        let ti = document.getElementById("title").value;
+        let au = document.getElementById("author").value;
+        const response = await fetch("http://localhost:5000/book", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({ title: ti, author: au })
+        });
+        alert("Book Added!");
+      }
+
+      async function putBook() {
+        let ti = document.getElementById("title").value;
+        let au = document.getElementById("author").value;
+        const response = await fetch("http://localhost:5000/book?title=" + au, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({ author: au })
+        });
+        alert("Book Updated!");
+      }
+
+      async function deleteBook() {
+        let ti = document.getElementById("title").value;
+        let au = document.getElementById("author").value;
+        const response = await fetch("http://localhost:5000/book?title=" + ti, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({ author: au })
+        });
+        alert("Book Deleted!");
+      }
+    </script>
   </body>
 </html>
